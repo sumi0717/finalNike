@@ -13,11 +13,11 @@ p {
 }
 
 a {
-  color: #fed136;
+  color: #62c5f7;
 }
 
 a:hover {
-  color: #fec503;
+  color: #f9f9f7;
 }
 
 .text-primary {
@@ -85,13 +85,12 @@ section h3.section-subheading {
 }
 
 ::-moz-selection {
-  background: #fed136;
   text-shadow: none;
 }
 
 ::selection {
-  background: #fed136;
   text-shadow: none;
+}
 }
 
 img::selection {

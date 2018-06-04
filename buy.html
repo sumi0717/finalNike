@@ -21,6 +21,9 @@
     border-bottom: 1px solid gray;
     height:35px !important;
   }
+  #mainNav1 a:hover{
+    color:black;
+  }
   #mainNav2{
     position: fixed;
     top:35px;
@@ -373,7 +376,93 @@
       color:#f94e66;
       text-shadow:0px 0px 6px #f94e66;
     }
+    
+     .modal.modal-center {
+  text-align: center;
+}
 
+@media screen and (min-width: 768px) { 
+  .modal.modal-center:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog.modal-center {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle; 
+}
+
+  .social-btns{
+      font-size: 22px;
+      list-style: none;
+      padding: 0;
+  }
+
+  .social-btns li{
+      margin-bottom: 5px;
+  }
+
+  .social-btns li i{
+      font-size: 22px;
+  }
+
+  .social-btns .btn-facebook {
+    background-color: #38519f;
+    border-color: #293b75;
+    color: #ffffff;
+    min-width: 260px;
+  }
+
+  .social-btns .btn-facebook:hover {
+    color: #ffffff;
+    background-color: #293b75;
+  }
+
+  .social-btns .btn-twitter {
+    background-color: #00a8fa;
+    border-color: #048cce;
+    color: #ffffff;
+    min-width: 260px;
+  }
+
+  .social-btns .btn-twitter:hover {
+    color: #ffffff;
+    background-color: #048cce;
+  }
+  .social-btns .btn-google {
+    background-color: black;
+    border-color: black;
+    color: #ffffff;
+    min-width: 260px;
+    padding: 8px;
+  }
+
+  .social-btns .btn-google:hover {
+    color: #ffffff;
+    background-color: #363636;
+  }
+  .glyphicon-remove:hover{
+    cursor:pointer;
+    color:grey;
+  }
+  a{
+  color: grey;
+  }
+  a:hover{
+  color: grey;
+  font-weight: bold;
+  }
+  
+   .modal-content{
+    width: 400px;
+    height: 500px;
+
+   }
+  
   </style>
 
   </head>
@@ -416,7 +505,7 @@
 </nav>
 <nav class="navbar navbar-expand-lg navbar-dark" id="mainNav2">
   <div class="container-fluid">
-    <a href="#page-top"><img src="./img/nike_logo2.png" alt="" height="45px;"></a>
+    <a href="./index.html"><img src="./img/nike_logo2.png" alt="" height="45px;"></a>
     <div id="menuDiv">
       <ul class="navbar-nav text-uppercase ml-auto" id="nikeMenu">
         <li class="nav-item">
@@ -832,7 +921,49 @@
       </div>
     </footer>
 
-   
+    <div class="modal modal-center fade" id="myCenterModal" tabindex="-1" role="dialog" aria-labelledby="myCenterModalLabel">
+  <div class="modal-dialog modal-center" role="document" style="width: 400px;">
+    <div class="modal-content">
+       <div class="center-block" style="text-align:center;">
+      <button type="button" class="close" style="opacity: 0.5; font-size:20px; margin-right: 10px;">
+        <span aria-hidden="true" class="close" data-dismiss="modal">&times;</span>
+      </button><br> 
+      <div class="logo"  style="text-align:center;">
+        <img src="img/nike.png"/>
+      </div>
+      <br>
+      <form action="#" class="form-signin" style="text-align:center;">
+      
+        
+        <ul class="social-btns center-block">
+        
+        <li class="container" style="width: 288px;">
+        <div class="form-group center-block">
+          <input type="text" id = "idval" class="form-control center-block" placeholder="아이디 입력" style="width: 260px; text-align:center;" required autofocus/>
+         
+        </div>
+        <div class="form-group center-block">
+          <input type="text" id = "passwordval" class="form-control center-block" placeholder="비밀번호 입력" style="width: 260px; text-align:center;" required/>
+          <div class="checkbox center-block" style="text-align: left; font-size: 12px; color: grey;">
+                  <label>
+                  <input type="checkbox" class="center-block" />
+                  로그인 유지하기
+                  </label>
+                  <a class="pull-right" href="">비밀번호 찾기</a>
+            
+              </div>
+        </div>
+        <button class="btn btn-google">로그인</button></li>
+              <li><button class="btn btn-facebook" onclick = "location.href = 'https://www.facebook.com'">페이스북으로 로그인</button></li>
+              <li><button class="btn btn-twitter">트위터로 로그인</button></li>
+            </ul>
+      </form>
+        <span style="font-size: 12px; color: grey;">회원이 아니신가요? <a href="#">회원가입</a></span>
+
+    </div>
+    </div>
+  </div>
+</div> 
 
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
