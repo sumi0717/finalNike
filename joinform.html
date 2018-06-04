@@ -164,7 +164,7 @@
   right:10%;
   color:#000;
 }
-#searchLable2:before {
+#searchLable2:before{
  color: #000;
  content:"\f002";
  font-family: FontAwesome;
@@ -228,6 +228,14 @@
   background-color: white;
   font-weight: bold;
   color:gray;
+}
+.successIcon{
+  position: relative;
+  top:-33px;
+  left:310px;
+}
+.feedbackHide{
+  display:none;
 }
 </style>
 </head>
@@ -498,9 +506,9 @@
           <div class="form-group has-feedback has-success" id = "id_form">
            <label for="email"></label>
            <input type="text" class="form-control" id="input_id" name="email" placeholder="사용하실 ID를 입력해주세요 (수신 가능 Email)" />
-           <span class="success glyphicon glyphicon-ok form-control-feedback"></span>
+           <span class="success glyphicon glyphicon-success form-control-feedback"></span>
            <span class="fail glyphicon glyphicon-remove form-control-feedback"></span>
-           <p class="help-block" id = "block3">최소 5글자 최대 10글자 이내로 입력하세요.</p>
+           <div class="feedbackHide">최소 5글자 최대 10글자 이내로 입력하세요.</div>
          </div>
          <!-- id 끝 -->
 
@@ -508,9 +516,9 @@
          <div class="form-group has-feedback" id = "pwd_form">
           <label for="password1"></label>
           <input type="text" class="form-control" id="pwd1" name="password1" placeholder="영문+숫자+특수문자 조합 8~16자리 이내" />
-          <span class="success2 glyphicon glyphicon-ok form-control-feedback"></span>
+          <span class="success2 glyphicon glyphicon-success form-control-feedback"></span>
           <span class="fail2 glyphicon glyphicon-remove form-control-feedback"></span>
-          <p class="help-block" id = "block4">이메일 형식에 맞게 입력하세요.</p>
+          <div class="feedbachHide">이메일 형식에 맞게 입력하세요.</div>
         </div>
         <!-- password 끝 -->
 
@@ -741,7 +749,7 @@
 
   var reg1=/^.{5,10}$/;
   var reg2=/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
-  var regName = /^[가-힣]{2,4}$/;
+  var regName = /^[가-힣]{2,5}$/;
   var regNum = /^01[06789][0-9]{4}[0-9]{4}$/;
 
   $("#input_id").keyup(function(){
