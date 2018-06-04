@@ -508,24 +508,24 @@
            <input type="text" class="form-control" id="input_id" name="email" placeholder="사용하실 ID를 입력해주세요 (수신 가능 Email)" />
            <span class="success glyphicon glyphicon-success form-control-feedback"></span>
            <span class="fail glyphicon glyphicon-remove form-control-feedback"></span>
-           <div class="feedbackHide">최소 5글자 최대 10글자 이내로 입력하세요.</div>
+           <div class="feedbackHide" id="idFeedback">이메일 형식에 맞춰 입력해주세요.</div>
          </div>
          <!-- id 끝 -->
 
          <!-- password 시작 -->
          <div class="form-group has-feedback" id = "pwd_form">
           <label for="password1"></label>
-          <input type="text" class="form-control" id="pwd1" name="password1" placeholder="영문+숫자+특수문자 조합 8~16자리 이내" />
+          <input type="password" class="form-control" id="pwd1" name="password1" placeholder="영문+숫자 조합 8~16자리 이내" />
           <span class="success2 glyphicon glyphicon-success form-control-feedback"></span>
           <span class="fail2 glyphicon glyphicon-remove form-control-feedback"></span>
-          <div class="feedbachHide">이메일 형식에 맞게 입력하세요.</div>
+          <div class="feedbackHide" id = "pwdFeedback">영문+숫자 조합 8~16자리 이내로 입력하세요..</div>
         </div>
         <!-- password 끝 -->
 
 
 
         <label for="password2"></label>
-        <input type="text" class="form-control" id="pwd2" name="password2" placeholder="비밀번호를 다시 입력해 주세요" />
+        <input type="password" class="form-control" id="pwd2" name="password2" placeholder="비밀번호를 다시 입력해 주세요" />
         <label for="name"></label>
         <input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력해 주세요" />
         <label for="number"></label>
@@ -751,53 +751,122 @@
   var reg2=/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
   var regName = /^[가-힣]{2,5}$/;
   var regNum = /^01[06789][0-9]{4}[0-9]{4}$/;
+   //이메일을 검증할 정규 표현식 
+   var emailReg=/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
+  //이메일 검증 통과 여부
+  var isEmailValid=false;
 
   $("#input_id").keyup(function(){
     //입력한 문자열 읽어오기 
     var str=$(this).val();  
-    var result1 = reg1.test(str);
-
-    /* $(this).parent().removeClass("has-success has-error");
-    $(".success, .fail").hide();
-    $(".help-block").hide();
-
-    if(result1 == false){
-      $("#block1").show();
-      $(".fail").show();
-      $("#id_form").addClass("has-error");
-      bool2 = false;
+    var result1 = emailReg.test(str);
+    
+    if(result1){
+      isEmailValid=true;
       
-    }
-    else{
-      $(".success").show();
-      $("#id_form").addClass("has-success");
-      bool2 = true;
-    }*/
+    }else{ isEmailValid=false;};
 
-    controlBtn();
+    setValid($(this), isEmailValid);
 
   });
+  
+   //비밀번호를 검증할 정규 표현식
+   var pwdReg=/^[a-zA-Z0-9]*$/; //특수문자 허용하지 않음
+   var pwdReg2=/[a-zA-Z]+/; //영문자 포함 여부
+   var pwdReg3=/[0-9]+/; //숫자 포함 여부 
+   var pwdReg4=/^.{8,16}$/; //최소 8글자 최대 16글자를 검증할 정규 표현식
+   //비밀번호 검증 통과 여부
+   var isPwdValid=false;
+
+   //비밀번호를 입력했을때 실행할 함수 등록 
+   $("#pwd1, #pwd2").on("input", function(){
+      //입력한 비밀번호를 양쪽 모두 읽어온다. 
+      var inputPwd1=$("#pwd1").val();
+      var inputPwd2=$("#pwd2").val();
+      //비밀 번호를 같게 입력했는지 여부 
+      var isEqual=inputPwd1==inputPwd2;
+      //정규표현식 통과 여부 
+      var result1=pwdReg.test(inputPwd1);
+      var result2=pwdReg2.test(inputPwd1);
+      var result3=pwdReg3.test(inputPwd1);
+      var result4=pwdReg4.test(inputPwd1);
+
+      //일단 true 로 해 놓고 
+      isPwdValid=true;
+      if(!isEqual){//양쪽을 동일하게 입력하지 않았을때
+
+       isPwdValid=false;
+     }
+      // 4 개의 정규표현식을 모두 통과 하지 못했을때 
+      if(!(result1 && result2 && result3 && result4)){
+
+       isPwdValid=false;
+     }
+      //색상과 아이콘을 바꾸는 함수 호출 
+      setValid($("#pwd1"), isPwdValid);
+      setValid($("#pwd2"), isPwdValid);
+    });
+
+
+   function setValid($input, isValid){
+    //일단 .has-success 와 .has-error 를 제거 한후 
+    $input.removeClass("is-valid is-invalid");
+
+    if(isValid){
+      $input
+      .addClass("is-valid");
+      if($input.attr("id") == "input_id"){
+        $("#idFeedback").removeClass("valid-feedback").addClass("feedbackHide");
+      }
+      if($input.attr("id") == "pwd1"){
+        $("#pwdFeedback").removeClass("valid-feedback").addClass("feedbackHide");
+      }
+      if($input.attr("id") == "pwd2"){
+        $("#pwdFeedback").removeClass("valid-feedback").addClass("feedbackHide");
+      }
+    }else{//정규 표현식을 어느 하나라도 통과 하지 못한 경우 
+      $input
+      .addClass("is-invalid");
+      if($input.attr("id") == "input_id"){
+        $("#idFeedback").removeClass("feedbackHide").addClass("invalid-feedback");
+      }
+      if($input.attr("id") == "pwd1"){
+        $("#pwdFeedback").removeClass("feedbackHide").addClass("invalid-feedback");
+      }
+      if($input.attr("id") == "pwd2"){
+        $("#pwdFeedback").removeClass("feedbackHide").addClass("invalid-feedback");
+      }
+    }
+    //가입 버튼 상태 변화 시키기
+
+  };
+
+  var isNameValid = false;
 
   $("#name").keyup(function(){
     var str = $(this).val();
     var resultName = regName.test(str);
     if(resultName){
-      $(this).removeClass("border-danger").addClass("border-success");
+      isNameValid = true;
     }
     else{
-      $(this).removeClass("border-success").addClass("border-danger");
+      isNameValid = false;
     }
+     setValid($(this),isNameValid);
   });
+
+  var isNumValid = false;
 
   $("#number").keyup(function(){
     var str = $(this).val();
     var resultNum = regNum.test(str);
     if(resultNum){
-      $(this).removeClass("border-danger").addClass("border-success");
+      isNumValid = true;
     }
     else{
-      $(this).removeClass("border-success").addClass("border-danger");
+      isNumValid = false;
     }
+     setValid($(this),isNumValid);
   })
 
 
